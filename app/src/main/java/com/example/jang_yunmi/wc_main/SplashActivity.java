@@ -1,4 +1,4 @@
-package com.example.jang_yunmi.wc_main;
+package com.example.jang_yunmi.weathercloset;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -10,6 +10,8 @@ import android.os.Bundle;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
 
+import com.example.jang_yunmi.wc_main.BuildConfig;
+import com.example.jang_yunmi.wc_main.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;

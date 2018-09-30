@@ -1,4 +1,6 @@
 <resources>
-    <string name="app_name">wc_main</string>
+    <string name="app_name">weathercloset</string>
+    <string name="drawer_open">drawer_open</string>
+    <string name="drawer_close">drawer_close</string>
     <string name="rc_color">splash_background</string>
 </resources>
