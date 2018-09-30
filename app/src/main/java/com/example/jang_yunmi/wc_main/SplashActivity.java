@@ -1,4 +1,4 @@
-package com.example.jang_yunmi.weathercloset;
+package com.example.jang_yunmi.wc_main;
 
 import android.content.DialogInterface;
 import android.content.Intent;

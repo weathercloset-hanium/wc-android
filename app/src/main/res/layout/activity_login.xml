@@ -7,12 +7,12 @@
     android:orientation="vertical"
     android:gravity="center"
     android:background="#c5d1a5"
-    tools:context="com.example.jang_yunmi.weathercloset.LoginActivity">
+    tools:context="com.example.jang_yunmi.wc_main.LoginActivity">
 
     <ImageView
         android:layout_width="89dp"
         android:layout_height="85dp"
-        android:src="@drawable/hanger" />
+        android:src="@drawable/ic_menu" />
 
 
     <android.support.design.widget.TextInputLayout

@@ -7,7 +7,7 @@
     android:gravity="center"
     android:background="#c5d1a5"
     android:orientation="vertical"
-    tools:context="com.example.jang_yunmi.weathercloset.SignupActivity">
+    tools:context="com.example.jang_yunmi.wc_main.SignupActivity">
 
 
     <ImageView

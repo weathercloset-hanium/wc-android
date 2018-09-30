@@ -9,7 +9,7 @@
     android:paddingTop="40dp"
     android:orientation="vertical"
     android:background="@drawable/background"
-    tools:context="com.example.jang_yunmi.weathercloset.MainActivity">
+    tools:context="com.example.jang_yunmi.wc_main.MainActivity">
 
     <!--Custom Toolbar-->
     <include layout="@layout/toolbar" />
