@@ -1,5 +1,6 @@
 package com.example.jang_yunmi.wc_main;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.media.Image;
 import android.net.Uri;
@@ -26,6 +27,7 @@ import android.widget.Toast;
 import android.widget.ViewSwitcher;
 
 import com.example.jang_yunmi.wc_main.R;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -39,6 +41,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     NavigationView navigationView;
     ActionBarDrawerToggle drawerToggle;
     Toolbar toolbar;
+    private FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener mAuthListener;
 
     private ImageSwitcher sw;
     private Button pr, nx;
@@ -54,11 +58,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        sw = (ImageSwitcher) findViewById(R.id.sw);
-        pr = (Button) findViewById(R.id.pr);
-        nx = (Button) findViewById(R.id.nx);
+        sw = findViewById(R.id.sw);
+        pr = findViewById(R.id.pr);
+        nx = findViewById(R.id.nx);
         sw.setFactory(new ViewSwitcher.ViewFactory() {
-            @Override
             public View makeView() {
                 ImageView imgeView = new ImageView(getApplicationContext());
                 imgeView.setScaleType(ImageView.ScaleType.FIT_CENTER);
@@ -93,6 +96,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         });
 
         initLayout();
+
+        // Firebase
+        mAuth = FirebaseAuth.getInstance();
+
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                if (firebaseAuth.getCurrentUser()==null){
+                    startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                }
+            }
+        };
     }
 
     @Override
@@ -100,19 +115,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         switch (item.getItemId()) {
             case R.id.item1:
                 Toast.makeText(this, "item1 clicked..", Toast.LENGTH_SHORT).show();
-                Toast.makeText(this, "item1 clicked..", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.item2:
                 Toast.makeText(this, "item2 clicked..", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.item3:
-                Toast.makeText(this, "item3 clicked..", Toast.LENGTH_SHORT).show();
+                mAuth.signOut();
                 break;
         }
 
         drawerLayout.closeDrawer(GravityCompat.START);
         return false;
     }
+
 
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
@@ -141,10 +156,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private void initLayout() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
+
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu_white_24dp);
+        //hamburger button 변경
+        Button btnNavigationDrawer = (Button) toolbar.findViewById(R.id.btnNavigationDrawer);
+        btnNavigationDrawer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switch (v.getId()){
+                    case R.id.btnNavigationDrawer:
+                        drawerLayout.openDrawer(GravityCompat.START);
+                        break;
+                }
+            }
+        });
 
         drawerLayout = (DrawerLayout) findViewById(R.id.dl_main_drawer_root);
         navigationView = (NavigationView) findViewById(R.id.nv_main_navigation_root);

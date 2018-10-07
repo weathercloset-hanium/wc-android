@@ -1,22 +1,22 @@
-<?xml version="1.0" encoding="utf-8"?>
+
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
         android:id="@+id/item1"
-        android:icon="@mipmap/ic_launcher_round"
-        android:title="Today weather"
+        android:icon="@drawable/ic_menu_item1"
+        android:title="My Closet"
         />
 
     <item
         android:id="@+id/item2"
-        android:icon="@mipmap/ic_launcher_round"
-        android:title="Week Weather"
+        android:icon="@drawable/ic_menu_item2"
+        android:title="Weather"
         />
 
     <item
         android:id="@+id/item3"
-        android:icon="@mipmap/ic_launcher_round"
-        android:title="My Closet"
+        android:icon="@drawable/ic_menu_item3"
+        android:title="Logout"
         />
 
 </menu>

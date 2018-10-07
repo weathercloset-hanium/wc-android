@@ -2,8 +2,8 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <android.support.v4.widget.DrawerLayout
         android:id="@+id/dl_main_drawer_root"
@@ -19,9 +19,9 @@
 
         <!-- main content -->
         <include
+            layout="@layout/activity_main_content"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            layout="@layout/activity_main_content" />
+            android:layout_height="match_parent" />
 
         <!-- navigation drawer-->
         <android.support.design.widget.NavigationView
@@ -30,6 +30,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="start"
             android:fitsSystemWindows="true"
+            android:background="#ffffff"
             app:headerLayout="@layout/nav_header_main"
             app:menu="@menu/drawer" />
 
