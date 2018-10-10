@@ -117,12 +117,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.item2:
                 Toast.makeText(this, "item2 clicked..", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getApplicationContext(), WeatherActivity.class);
+                startActivity(intent);
                 break;
             case R.id.item3:
                 mAuth.signOut();
                 break;
         }
-
         drawerLayout.closeDrawer(GravityCompat.START);
         return false;
     }

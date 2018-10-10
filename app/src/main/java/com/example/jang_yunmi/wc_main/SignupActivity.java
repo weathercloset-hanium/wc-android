@@ -34,6 +34,7 @@ public class SignupActivity extends AppCompatActivity {
     private String splash_background;
     private ImageView profile;
     private Uri imageUri;
+    private String OPEN_WEATHER_MAP_API = "cbfdb21fa1793c10b14b6b6d00fbef03";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
