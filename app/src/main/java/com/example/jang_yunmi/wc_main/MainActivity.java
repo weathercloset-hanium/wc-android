@@ -114,11 +114,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.item1:
-                Toast.makeText(this, "item1 clicked..", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(this, "item1 clicked..", Toast.LENGTH_SHORT).show();
+                Intent intent2 = new Intent(this, MypageActivity.class);
+                startActivity(intent2);
                 break;
             case R.id.item2:
                 Toast.makeText(this, "item2 clicked..", Toast.LENGTH_SHORT).show();
                 break;
+
             case R.id.item3:
                 mAuth.signOut();
                 break;
@@ -160,7 +163,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu_white_24dp);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.cardiogram);
         //hamburger button 변경
         Button btnNavigationDrawer = (Button) toolbar.findViewById(R.id.btnNavigationDrawer);
         btnNavigationDrawer.setOnClickListener(new View.OnClickListener() {

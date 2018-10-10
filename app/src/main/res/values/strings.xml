@@ -3,4 +3,5 @@
     <string name="drawer_open">drawer_open</string>
     <string name="drawer_close">drawer_close</string>
     <string name="rc_color">splash_background</string>
+    <string name="title_activity_mypage">MypageActivity</string>
 </resources>

@@ -21,8 +21,9 @@
         <Button
             android:id="@+id/btnGPS"
             android:layout_width="30dp"
-            android:background="@drawable/ic_gps"
+            android:background="@drawable/pointer"
             android:layout_height="30dp"
+            android:layout_marginRight="15dp"
             android:layout_alignParentRight="true"/>
     </RelativeLayout>
 </android.support.v7.widget.Toolbar>
