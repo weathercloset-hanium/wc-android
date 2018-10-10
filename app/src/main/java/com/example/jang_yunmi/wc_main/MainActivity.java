@@ -52,7 +52,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     // to keep current Index of ImageID array
     int currentIndex = -1;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,6 +60,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         sw = findViewById(R.id.sw);
         pr = findViewById(R.id.pr);
         nx = findViewById(R.id.nx);
+
         sw.setFactory(new ViewSwitcher.ViewFactory() {
             public View makeView() {
                 ImageView imgeView = new ImageView(getApplicationContext());
@@ -82,7 +82,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         });
 
         pr.setOnClickListener(new View.OnClickListener() {
-
             public void onClick(View v) {
                 // TODO Auto-generated method stub
                 currentIndex--;
@@ -160,7 +159,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu_white_24dp);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu_item2);
         //hamburger button 변경
         Button btnNavigationDrawer = (Button) toolbar.findViewById(R.id.btnNavigationDrawer);
         btnNavigationDrawer.setOnClickListener(new View.OnClickListener() {
