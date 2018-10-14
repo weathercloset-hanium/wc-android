@@ -116,8 +116,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 Toast.makeText(this, "item1 clicked..", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.item2:
+                Intent intent = new Intent(MainActivity.this, WeatherActivity.class);
                 Toast.makeText(this, "item2 clicked..", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(getApplicationContext(), WeatherActivity.class);
                 startActivity(intent);
                 break;
             case R.id.item3:

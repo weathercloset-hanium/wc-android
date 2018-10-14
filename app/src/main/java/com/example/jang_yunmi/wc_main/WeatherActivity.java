@@ -22,9 +22,6 @@ import java.util.Locale;
 
 public class WeatherActivity extends AppCompatActivity{
 
-    // Project Created by Ferdousur Rahman Shajib
-    // www.androstock.com
-
     TextView selectCity, cityField, detailsField, currentTemperatureField, humidity_field, pressure_field, weatherIcon, updatedField;
     ProgressBar loader;
     Typeface weatherFont;
@@ -48,7 +45,7 @@ public class WeatherActivity extends AppCompatActivity{
         weatherFont = Typeface.createFromAsset(getAssets(), "fonts/weathericons-regular-webfont.ttf");
         weatherIcon.setTypeface(weatherFont);
 
-        taskLoadUp(city);
+//        taskLoadUp(city);
 
         selectCity.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,7 +102,6 @@ public class WeatherActivity extends AppCompatActivity{
         }
         @Override
         protected void onPostExecute(String xml) {
-
             try {
                 JSONObject json = new JSONObject(xml);
                 if (json != null) {
