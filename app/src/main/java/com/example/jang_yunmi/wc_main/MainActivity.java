@@ -34,6 +34,10 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
+import android.os.Build;
+import android.Manifest;
+import android.content.pm.PackageManager;
+
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     // menu bar
@@ -52,6 +56,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     // to keep current Index of ImageID array
     int currentIndex = -1;
 
+    /* gps */
+    private final int PERMISSIONS_ACCESS_FINE_LOCATION = 1000;
+    private final int PERMISSIONS_ACCESS_COARSE_LOCATION = 1001;
+    private boolean isAccessFineLocation = false;
+    private boolean isAccessCoarseLocation = false;
+    private boolean isPermission = false;
+    private double latitude;
+    private double longitude;
+    private GpsInfo gps;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,7 +74,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         sw = findViewById(R.id.sw);
         pr = findViewById(R.id.pr);
         nx = findViewById(R.id.nx);
-
         sw.setFactory(new ViewSwitcher.ViewFactory() {
             public View makeView() {
                 ImageView imgeView = new ImageView(getApplicationContext());
@@ -82,6 +95,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         });
 
         pr.setOnClickListener(new View.OnClickListener() {
+
             public void onClick(View v) {
                 // TODO Auto-generated method stub
                 currentIndex--;
@@ -107,23 +121,45 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 }
             }
         };
+
+        /* gps  */
+        // 권한 요청을 해야 함
+        if (!isPermission) {
+            callPermission();
+        }
+        gps = new GpsInfo(MainActivity.this);
+        if (gps.isGetLocation()) {
+            latitude = gps.getLatitude();
+            longitude = gps.getLongitude();
+
+            Toast.makeText(
+                    getApplicationContext(),
+                    "당신의 위치 - \n위도: " + latitude + "\n경도: " + longitude,
+                    Toast.LENGTH_LONG).show();
+        } else
+        {
+            gps.showSettingsAlert();
+        }
     }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.item1:
-                Toast.makeText(this, "item1 clicked..", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(this, "item1 clicked..", Toast.LENGTH_SHORT).show();
+                Intent intent2 = new Intent(this, MypageActivity.class);
+                startActivity(intent2);
                 break;
             case R.id.item2:
-                Intent intent = new Intent(MainActivity.this, WeatherActivity.class);
+                Intent intent3 = new Intent(MainActivity.this, WeatherActivity.class);
                 Toast.makeText(this, "item2 clicked..", Toast.LENGTH_SHORT).show();
-                startActivity(intent);
+                startActivity(intent3);
                 break;
             case R.id.item3:
                 mAuth.signOut();
                 break;
         }
+
         drawerLayout.closeDrawer(GravityCompat.START);
         return false;
     }
@@ -160,7 +196,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu_item2);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.cardiogram);
         //hamburger button 변경
         Button btnNavigationDrawer = (Button) toolbar.findViewById(R.id.btnNavigationDrawer);
         btnNavigationDrawer.setOnClickListener(new View.OnClickListener() {
@@ -195,8 +231,49 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             super.onBackPressed();
         }
     }
+
+    /* gps 권한 확인 */
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                                           int[] grantResults) {
+        if (requestCode == PERMISSIONS_ACCESS_FINE_LOCATION
+                && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+            isAccessFineLocation = true;
+
+        } else if (requestCode == PERMISSIONS_ACCESS_COARSE_LOCATION
+                && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+
+            isAccessCoarseLocation = true;
+        }
+
+        if (isAccessFineLocation && isAccessCoarseLocation) {
+            isPermission = true;
+        }
+    }
+
+    // 전화번호 권한 요청
+    private void callPermission() {
+        // Check the SDK version and whether the permission is already granted or not.
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
+                && checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            requestPermissions(
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                    PERMISSIONS_ACCESS_FINE_LOCATION);
+
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
+                && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED){
+
+            requestPermissions(
+                    new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
+                    PERMISSIONS_ACCESS_COARSE_LOCATION);
+        } else {
+            isPermission = true;
+        }
+    }
+
 }
-
-
-
-

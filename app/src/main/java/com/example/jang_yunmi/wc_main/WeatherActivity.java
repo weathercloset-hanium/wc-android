@@ -45,7 +45,7 @@ public class WeatherActivity extends AppCompatActivity{
         weatherFont = Typeface.createFromAsset(getAssets(), "fonts/weathericons-regular-webfont.ttf");
         weatherIcon.setTypeface(weatherFont);
 
-//        taskLoadUp(city);
+        taskLoadUp(city);
 
         selectCity.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,7 +93,6 @@ public class WeatherActivity extends AppCompatActivity{
         protected void onPreExecute() {
             super.onPreExecute();
             loader.setVisibility(View.VISIBLE);
-
         }
         protected String doInBackground(String...args) {
             String xml = Function.excuteGet("http://api.openweathermap.org/data/2.5/weather?q=" + args[0] +
@@ -103,24 +102,28 @@ public class WeatherActivity extends AppCompatActivity{
         @Override
         protected void onPostExecute(String xml) {
             try {
-                JSONObject json = new JSONObject(xml);
-                if (json != null) {
-                    JSONObject details = json.getJSONArray("weather").getJSONObject(0);
-                    JSONObject main = json.getJSONObject("main");
-                    DateFormat df = DateFormat.getDateTimeInstance();
+//                super.onPostExecute(xml);
+                if(xml!=null){
+                    //xml = "{\"coord\":{\"lon\":85.17,\"lat\":26.67},\"weather\":[{\"id\":800,\"main\":\"Clear\",\"description\":\"clear sky\",\"icon\":\"01d\"}],\"base\":\"stations\",\"main\":{\"temp\":34.1,\"pressure\":1014.79,\"humidity\":32,\"temp_min\":34.1,\"temp_max\":34.1,\"sea_level\":1021.03,\"grnd_level\":1014.79},\"wind\":{\"speed\":5.71,\"deg\":263.001},\"clouds\":{\"all\":0},\"dt\":1539509197,\"sys\":{\"message\":0.0046,\"country\":\"IN\",\"sunrise\":1539476289,\"sunset\":1539517922},\"id\":1273043,\"name\":\"Dhaka\",\"cod\":200}";
+                    JSONObject json = new JSONObject(xml);
+                    if (json != null) {
+                        JSONObject details = json.getJSONArray("weather").getJSONObject(0);
+                        JSONObject main = json.getJSONObject("main");
+                        DateFormat df = DateFormat.getDateTimeInstance();
 
-                    cityField.setText(json.getString("name").toUpperCase(Locale.US) + ", " + json.getJSONObject("sys").getString("country"));
-                    detailsField.setText(details.getString("description").toUpperCase(Locale.US));
-                    currentTemperatureField.setText(String.format("%.2f", main.getDouble("temp")) + "°");
-                    humidity_field.setText("Humidity: " + main.getString("humidity") + "%");
-                    pressure_field.setText("Pressure: " + main.getString("pressure") + " hPa");
-                    updatedField.setText(df.format(new Date(json.getLong("dt") * 1000)));
-                    weatherIcon.setText(Html.fromHtml(Function.setWeatherIcon(details.getInt("id"),
-                            json.getJSONObject("sys").getLong("sunrise") * 1000,
-                            json.getJSONObject("sys").getLong("sunset") * 1000)));
-
-                    loader.setVisibility(View.GONE);
-
+                        cityField.setText(json.getString("name").toUpperCase(Locale.KOREA) + ", " + json.getJSONObject("sys").getString("country"));
+                        detailsField.setText(details.getString("description").toUpperCase(Locale.US));
+                        currentTemperatureField.setText(String.format("%.2f", main.getDouble("temp")) + "°");
+                        humidity_field.setText("Humidity: " + main.getString("humidity") + "%");
+                        pressure_field.setText("Pressure: " + main.getString("pressure") + " hPa");
+                        updatedField.setText(df.format(new Date(json.getLong("dt") * 1000)));
+                        weatherIcon.setText(Html.fromHtml(Function.setWeatherIcon(details.getInt("id"),
+                                json.getJSONObject("sys").getLong("sunrise") * 1000,
+                                json.getJSONObject("sys").getLong("sunset") * 1000)));
+                        loader.setVisibility(View.GONE);
+                    }
+                }else{
+                    Toast.makeText(WeatherActivity.this, "null ", Toast.LENGTH_SHORT).show();
                 }
             } catch (JSONException e) {
                 Toast.makeText(getApplicationContext(), "Error, Check City", Toast.LENGTH_SHORT).show();
